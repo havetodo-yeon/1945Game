@@ -9,12 +9,14 @@ public class Player : MonoBehaviour
     Animator ani;   // 애니메이터를 가져올 변수
 
     public Transform pos = null;
-    public GameObject bullet;
+    //public GameObject bullet; // 미사일 개수 여러 개
+    public List<GameObject> bullet = new List<GameObject>();
+
+    public int power = 0;
 
 
     void Start()
     {
-        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         ani = GetComponent<Animator>();
     }
 
@@ -55,7 +57,7 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             // 프리팹 위치 방향 생성
-            Instantiate(bullet, pos.position, Quaternion.identity);
+            Instantiate(bullet[power], pos.position, Quaternion.identity);
         }
 
         transform.Translate(moveX, moveY, 0);
@@ -68,10 +70,17 @@ public class Player : MonoBehaviour
         transform.position = worldPos;  // 좌표를 적용한다.
     }
 
-    public int colorset = 0;
-    SpriteRenderer spriteRenderer;
-
-
-
-
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "Item")
+        {
+            power++;
+            if(power >= 3)
+            {
+                power = 3;
+            }
+            // 아이템 먹고 사라짐
+            Destroy(collision.gameObject);
+        }
+    }
 }

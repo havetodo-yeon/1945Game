@@ -4,51 +4,41 @@ using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class Item : MonoBehaviour
 {
-    public Vector3 MovePos; // 이동벡터
-    public float speed = 4f;
+    /*    public Vector3 MovePos; // 이동벡터
+        public float speed = 4f;
 
-/*    private void Start()
-    {
-        MovePos = -new Vector2(1f, 1f).normalized;
-        StartCoroutine("Reflect");
-    }
-
-    IEnumerator Reflect()
-    {
-        while (true)
+        void Start()
         {
-            yield return new WaitForSeconds(Time.deltaTime);
-            float distanceY = speed * Time.deltaTime;
-            float distanceX = speed * Time.deltaTime;
-            transform.Translate(distanceX, -distanceY, 0);
+            MovePos = new Vector2(-1f, -1f).normalized;
         }
-    }*/
 
+        void Update()
+        {
+            transform.position += MovePos * speed * Time.deltaTime;
+        }
 
-    void Start()
-    {
-        MovePos = new Vector2(-1f, -1f).normalized;
-    }
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.gameObject.tag.Equals("Player"))
+            {
+                Destroy(gameObject);
+            }
+        }
 
-    void Update()
-    {
-        transform.position += MovePos * speed * Time.deltaTime;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag.Equals("Player"))
+        private void OnBecameInvisible()
         {
             Destroy(gameObject);
         }
+    */
 
+    // 아이템 가속 속도 
+    public float ItemVelocity = 20f;
+    Rigidbody2D rig = null;
 
-    }
-
-    private void OnBecameInvisible()
+    private void Start()
     {
-        Destroy(gameObject);
+        rig = GetComponent<Rigidbody2D>();
+        rig.AddForce(new Vector3(ItemVelocity, ItemVelocity, 0f));
     }
-
 
 }

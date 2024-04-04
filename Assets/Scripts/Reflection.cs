@@ -21,7 +21,7 @@ public class Reflection : MonoBehaviour
         }
     */
 
-    private void OnTriggerEnter2D(Collider2D collision)
+/*    private void OnTriggerEnter2D(Collider2D collision)
     {
         Item b = collision.gameObject.GetComponent<Item>();
         if (collision.gameObject.tag.Equals("Item"))
@@ -35,5 +35,5 @@ public class Reflection : MonoBehaviour
             b.MovePos = reflect;
         }
     }
-
+*/
 }

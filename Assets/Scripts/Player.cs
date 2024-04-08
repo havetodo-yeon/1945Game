@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -13,6 +14,11 @@ public class Player : MonoBehaviour
     public List<GameObject> bullet = new List<GameObject>();
 
     public int power = 0;
+
+    // 레이저
+    public GameObject lazer;
+    public float gValue = 0;
+    public Image Gage;
 
 
     void Start()
@@ -59,6 +65,38 @@ public class Player : MonoBehaviour
             // 프리팹 위치 방향 생성
             Instantiate(bullet[power], pos.position, Quaternion.identity);
         }
+
+        //스페이스바 누르고 있을 때
+        else if (Input.GetKey(KeyCode.Space))
+        {
+            gValue += Time.deltaTime;
+            Gage.fillAmount = gValue;
+
+            if(gValue >= 1)
+            {
+                // 레이저 나가기
+                GameObject go = Instantiate(lazer, pos.position,
+                    Quaternion.identity);
+                Destroy(go, 3);
+                gValue = 0;
+            }
+
+        }
+
+        else
+        {
+            gValue -= Time.deltaTime;
+
+            if(gValue <= 0)
+            {
+                gValue = 0;
+            }
+
+            // UI
+            Gage.fillAmount = gValue;
+
+        }
+
 
         transform.Translate(moveX, moveY, 0);
 

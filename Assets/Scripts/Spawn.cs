@@ -12,9 +12,17 @@ public class Spawn : MonoBehaviour
     [SerializeField] private GameObject monster;
     [SerializeField] private GameObject monster2;
     // [SerializeField] private List<GameObject> monsters;
+    [SerializeField] private GameObject Boss;
 
     bool swi = true;
     bool swi2 = true;
+
+    [SerializeField] GameObject textBossWarning;    // 보스 등장 텍스트 오브젝트
+
+    private void Awake()
+    {
+        textBossWarning.SetActive(false);
+    }
 
     void Start()
     {
@@ -72,6 +80,11 @@ public class Spawn : MonoBehaviour
         StopCoroutine("RandomSpawn2");
 
         // 보스 몬스터
+        textBossWarning.SetActive(true);
+
+        Vector3 pos = new Vector3(0, 3.1f, 9);
+        
+        Instantiate(Boss, pos , Quaternion.identity);   
 
 
     }

@@ -16,8 +16,17 @@ public class Boss : MonoBehaviour
 
     void Start()
     {
+        // 1초 뒤에 Hide 함수 호출
+        Invoke("Hide", 1);
+
         StartCoroutine(BossMissle());   // 코루틴 실행
         StartCoroutine(CirceFire());   // 코루틴 실행
+    }
+
+    void Hide()
+    {
+        // 보스 텍스트 객체 이름 검색해서 찾기
+        GameObject.Find("TextBossWarning").SetActive(false);
     }
 
     IEnumerator BossMissle()

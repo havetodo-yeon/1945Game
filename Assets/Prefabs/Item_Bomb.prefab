@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4338138303503085849}
   m_Layer: 6
   m_Name: Item_Bomb
-  m_TagString: Item
+  m_TagString: Bomb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -149,6 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemVelocity: 100
+  text: {fileID: 4856191772712761246, guid: 0a384d768951cb6408e3ad427cc1c385, type: 3}
 --- !u!58 &4338138303503085849
 CircleCollider2D:
   m_ObjectHideFlags: 0

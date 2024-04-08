@@ -34,6 +34,7 @@ public class Item : MonoBehaviour
     // 아이템 가속 속도 
     public float ItemVelocity = 20f;
     Rigidbody2D rig = null;
+    public GameObject text;
 
     private void Start()
     {

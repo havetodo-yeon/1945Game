@@ -12,13 +12,16 @@ public class Player : MonoBehaviour
     public Transform pos = null;
     //public GameObject bullet; // 미사일 개수 여러 개
     public List<GameObject> bullet = new List<GameObject>();
+    //public List<GameObject> bombImage = new List<GameObject>();   // 폭탄 개수 카운팅
 
     public int power = 0;
+    public int bomb = 0;
 
     // 레이저
     public GameObject lazer;
     public float gValue = 0;
     public Image Gage;
+    private bool isGaugeFull = false;
 
 
     void Start()
@@ -69,18 +72,21 @@ public class Player : MonoBehaviour
         //스페이스바 누르고 있을 때
         else if (Input.GetKey(KeyCode.Space))
         {
-            gValue += Time.deltaTime;
-            Gage.fillAmount = gValue;
-
-            if(gValue >= 1)
+            if (gValue < 1 && !isGaugeFull)
             {
-                // 레이저 나가기
-                GameObject go = Instantiate(lazer, pos.position,
-                    Quaternion.identity);
-                Destroy(go, 3);
-                gValue = 0;
+                gValue += Time.deltaTime;
+                Gage.fillAmount = gValue;
+                if (gValue >= 1)
+                {
+                    isGaugeFull = true;
+                    // 레이저 나가기
+                    GameObject go = Instantiate(lazer, pos.position,
+                        Quaternion.identity);
+                    Destroy(go, 2.5f);
+                    gValue = 0;
+                    Invoke("GaugeFalse", 2.5f);
+                }
             }
-
         }
 
         else
@@ -108,14 +114,34 @@ public class Player : MonoBehaviour
         transform.position = worldPos;  // 좌표를 적용한다.
     }
 
+    public void GaugeFalse()
+    {
+        isGaugeFull = false;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Item")
+        if(collision.tag == "Power")
         {
-            power++;
-            if(power >= 3)
+            if(power < 3)
             {
-                power = 3;
+                Item item = collision.GetComponent<Item>();
+                bomb++;
+                GameObject go = Instantiate(item.text, transform.position, Quaternion.identity);
+                Destroy(go, 0.5f);
+            }
+            // 아이템 먹고 사라짐
+            Destroy(collision.gameObject);
+        }
+
+        if(collision.tag == "Bomb")
+        {
+            if(bomb < 3)
+            {
+                Item item = collision.GetComponent<Item>();
+                power++;
+                GameObject go = Instantiate(item.text, transform.position, Quaternion.identity);
+                Destroy(go, 0.5f);
             }
             // 아이템 먹고 사라짐
             Destroy(collision.gameObject);

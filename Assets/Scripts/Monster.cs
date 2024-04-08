@@ -12,6 +12,9 @@ public class Monster : MonoBehaviour
     public Transform ms2;
     public GameObject bullet;
 
+    public GameObject effect;
+
+
     // 아이템 가져오기
     public GameObject Item;
 
@@ -48,6 +51,13 @@ public class Monster : MonoBehaviour
         if(HP <= 0)
         {
             ItemDrop();
+
+            // 이펙트 생성
+            GameObject go = Instantiate(effect, transform.position, Quaternion.identity);
+            // 1초 뒤에 지우기
+            Destroy(go, 1);
+
+
             Destroy(gameObject);
         }
     }

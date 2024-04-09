@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Boss : MonoBehaviour
 {
+    public int HP = 1000;
 
     int flag = 1;
     int speed = 2;
@@ -13,6 +14,9 @@ public class Boss : MonoBehaviour
 
     public Transform pos1;
     public Transform pos2;
+
+    public GameObject deadEffect;
+
 
     void Start()
     {
@@ -80,14 +84,29 @@ public class Boss : MonoBehaviour
         }
     }
 
+    public void Damage(int attack)
+    {
+        HP -= attack;
+        if (HP <= 0)
+        {
+            // 이펙트 생성
+            GameObject go = Instantiate(deadEffect, transform.position, Quaternion.identity);
+            // 1초 뒤에 지우기
+            Destroy(go, 2);
+
+            Destroy(gameObject);
+        }
+    }
+
+
 
     void Update()
     {
-        if(transform.position.x > 1)
+        if(transform.position.x > 0.6f)
         {
             flag *= -1;
         }
-        if(transform.position.x < -1)
+        if(transform.position.x < -0.6f)
         {
             flag *= -1;
         }

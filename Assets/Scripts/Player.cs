@@ -12,8 +12,10 @@ public class Player : MonoBehaviour
     public Transform pos = null;
     //public GameObject bullet; // 미사일 개수 여러 개
     public List<GameObject> bullet = new List<GameObject>();
-    //public List<GameObject> bombImage = new List<GameObject>();   // 폭탄 개수 카운팅
+    public Sprite[] bombImage;   // 폭탄 개수 카운팅
+    public Image bombCounting;
 
+    public bool bulletCreate = false;
     public int power = 0;
     public int bomb = 0;
 
@@ -66,11 +68,17 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             // 프리팹 위치 방향 생성
-            Instantiate(bullet[power], pos.position, Quaternion.identity);
+            bulletCreate = true;
+            //Instantiate(bullet[power], pos.position, Quaternion.identity);
+            StartCoroutine(BulletMaker());
+        }
+        else if (Input.GetKeyUp(KeyCode.Space))
+        {
+            bulletCreate = false;
         }
 
         //스페이스바 누르고 있을 때
-        else if (Input.GetKey(KeyCode.Space))
+        else if (Input.GetKey(KeyCode.LeftAlt))
         {
             if (gValue < 1 && !isGaugeFull)
             {
@@ -114,6 +122,17 @@ public class Player : MonoBehaviour
         transform.position = worldPos;  // 좌표를 적용한다.
     }
 
+    IEnumerator BulletMaker()
+    {
+        // 프리팹 위치 방향 생성
+        while(bulletCreate)
+        {
+            Instantiate(bullet[power], pos.position, Quaternion.identity);
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
+
+
     public void GaugeFalse()
     {
         isGaugeFull = false;
@@ -126,7 +145,7 @@ public class Player : MonoBehaviour
             if(power < 3)
             {
                 Item item = collision.GetComponent<Item>();
-                bomb++;
+                power++;
                 GameObject go = Instantiate(item.text, transform.position, Quaternion.identity);
                 Destroy(go, 0.5f);
             }
@@ -136,10 +155,11 @@ public class Player : MonoBehaviour
 
         if(collision.tag == "Bomb")
         {
-            if(bomb < 3)
+            if(bomb < 5)
             {
                 Item item = collision.GetComponent<Item>();
-                power++;
+                bomb++;
+                bombCounting.sprite = bombImage[bomb];
                 GameObject go = Instantiate(item.text, transform.position, Quaternion.identity);
                 Destroy(go, 0.5f);
             }

@@ -405,8 +405,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.087}
-  m_Size: {x: 0.74, y: 1.25}
+  m_Offset: {x: 0, y: 0.14488643}
+  m_Size: {x: 0.74, y: 1.1342272}
   m_Direction: 0
 --- !u!1 &5354495662412331458
 GameObject:
@@ -631,8 +631,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.087}
-  m_Size: {x: 0.74, y: 1.25}
+  m_Offset: {x: 0, y: 0.15402645}
+  m_Size: {x: 0.74, y: 1.1159471}
   m_Direction: 0
 --- !u!1 &8777216831926934792
 GameObject:
@@ -781,8 +781,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.004340291, y: 0.09237981}
-  m_Size: {x: 2.107402, y: 3.0852404}
+  m_Offset: {x: -0.004340291, y: 0.2355727}
+  m_Size: {x: 2.107402, y: 2.7988546}
   m_Direction: 0
 --- !u!114 &2803756756514422032
 MonoBehaviour:
@@ -800,3 +800,4 @@ MonoBehaviour:
   mb2: {fileID: 1971746751024530010, guid: acd428577b759694bbdbf348019f0da9, type: 3}
   pos1: {fileID: 3524925521552337029}
   pos2: {fileID: 3326658284120178325}
+  deadEffect: {fileID: 7546346268064788231, guid: a0c6998092e1e814bb94c938ffe11e66, type: 3}

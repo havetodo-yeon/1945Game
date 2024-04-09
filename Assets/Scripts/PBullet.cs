@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PBullet : MonoBehaviour
 {
-    public float Speed = 4.0f;
+    private float Speed = 5.0f;
     public int Attack = 10;
     public GameObject effect;
 
@@ -45,13 +45,15 @@ public class PBullet : MonoBehaviour
         {
             ObjectColor.Instance.GetHurt(collision.gameObject);
 
+            collision.gameObject.GetComponent<Monster>().Damage(Attack);
+
             // 이펙트 생성
             GameObject go = Instantiate(effect, transform.position, Quaternion.identity);
             // 1초 뒤에 지우기
             Destroy(go, 1);
             // 미사일 삭제
             Destroy(gameObject);
-            // 
+             
         }
 
 

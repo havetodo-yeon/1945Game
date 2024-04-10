@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Boss : MonoBehaviour
 {
     public int HP = 1000;
 
+    int score = 1000;
     int flag = 1;
     int speed = 2;
 
@@ -20,17 +22,8 @@ public class Boss : MonoBehaviour
 
     void Start()
     {
-        // 1초 뒤에 Hide 함수 호출
-        Invoke("Hide", 1);
-
         StartCoroutine(BossMissle());   // 코루틴 실행
         StartCoroutine(CirceFire());   // 코루틴 실행
-    }
-
-    void Hide()
-    {
-        // 보스 텍스트 객체 이름 검색해서 찾기
-        GameObject.Find("TextBossWarning").SetActive(false);
     }
 
     IEnumerator BossMissle()
@@ -95,6 +88,12 @@ public class Boss : MonoBehaviour
             Destroy(go, 2);
 
             Destroy(gameObject);
+
+            UIManager.Instance.ScoreSet(score);
+
+            UIManager.Instance.BossTextSet("Stage Clear!", 3f);
+            UIManager.Instance.Fade();
+
         }
     }
 

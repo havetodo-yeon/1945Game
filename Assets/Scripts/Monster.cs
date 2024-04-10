@@ -5,7 +5,8 @@ using UnityEngine;
 public class Monster : MonoBehaviour
 {
     public int HP = 100;
-    
+
+    public int score = 100;
     public float Speed = 3;
     public float Delay = 1f;
     public Transform ms1;
@@ -13,7 +14,6 @@ public class Monster : MonoBehaviour
     public GameObject bullet;
 
     public GameObject effect;
-
 
     // 아이템 가져오기
     public GameObject Item;
@@ -57,6 +57,7 @@ public class Monster : MonoBehaviour
             // 1초 뒤에 지우기
             Destroy(go, 1);
 
+            UIManager.Instance.ScoreSet(score);
 
             Destroy(gameObject);
         }

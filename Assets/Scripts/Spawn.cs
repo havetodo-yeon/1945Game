@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Spawn : MonoBehaviour
 {
+    public static Spawn Instance;
+
     public float ss = -2;   // 몬스터 생성 x값 처음
     public float es = 2;    // x값 끝
     public float startTime = 1; // 시작
@@ -17,11 +19,12 @@ public class Spawn : MonoBehaviour
     bool swi = true;
     bool swi2 = true;
 
-    [SerializeField] GameObject textBossWarning;    // 보스 등장 텍스트 오브젝트
-
     private void Awake()
     {
-        textBossWarning.SetActive(false);
+        if (Instance == null)
+        {
+            Instance = this;
+        }
     }
 
     void Start()
@@ -80,7 +83,7 @@ public class Spawn : MonoBehaviour
         StopCoroutine("RandomSpawn2");
 
         // 보스 몬스터
-        textBossWarning.SetActive(true);
+        UIManager.Instance.BossTextSet("Boss Warning!", 2f);
 
         Vector3 pos = new Vector3(0, 3.1f, 9);
         

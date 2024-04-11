@@ -28,7 +28,7 @@ public class MBullet : MonoBehaviour
         if ((collision.CompareTag("Player")))
         {
             // 플레이어 데미지
-            ObjectColor.Instance.GetHurt(collision.gameObject);
+            GameManager.Instance.GetHurt(collision.gameObject);
 
             // 플레이어 지우기
             // Destroy(collision.gameObject);

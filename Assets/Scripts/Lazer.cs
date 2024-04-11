@@ -23,38 +23,43 @@ public class Lazer : MonoBehaviour
     {
         if(collision.tag == "Monster")
         {
-            collision.gameObject.GetComponent<Monster>().Damage(Attack++);
-            // 이펙트 생성
-            GameObject go = Instantiate(effect, collision.transform.position, Quaternion.identity);
-            //이펙트 1초 뒤 지우기
-            Destroy(go, 1);
+            StartCoroutine(DamageMonster(collision));
         }
 
         if(collision.tag == "Boss")
         {
-            // 이펙트 생성
-            GameObject go = Instantiate(effect, collision.transform.position, Quaternion.identity);
-            //이펙트 1초 뒤 지우기
-            Destroy(go, 1);
+            StartCoroutine(DamageBoss(collision));
         }
     }
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if(collision.tag == "Monster")
-        {
-            collision.gameObject.GetComponent<Monster>().Damage(Attack++);
-            // 이펙트 생성
-            GameObject go = Instantiate(effect, collision.transform.position, Quaternion.identity);
-            //이펙트 1초 뒤 지우기
-            Destroy(go, 1);
-        }
 
-        if(collision.tag == "Boss")
+    IEnumerator DamageMonster(Collider2D collisionObject)
+    {
+        while(true)
         {
+            collisionObject.gameObject.GetComponent<Monster>().Damage(Attack);
             // 이펙트 생성
-            GameObject go = Instantiate(effect, collision.transform.position, Quaternion.identity);
+            //GameObject go = Instantiate(effect, collision.transform.position, Quaternion.identity);
             //이펙트 1초 뒤 지우기
-            Destroy(go, 1);
+            GameManager.Instance.GetHurt(collisionObject.gameObject);
+            //Destroy(go, 1);
+            yield return new WaitForSeconds(0.9f);
+
+        }
+    }
+
+    IEnumerator DamageBoss(Collider2D collisionObject)
+    {
+        while(true)
+        {
+            collisionObject.gameObject.GetComponent<Boss>().Damage(Attack);
+            // 이펙트 생성
+            //GameObject go = Instantiate(effect, collision.transform.position, Quaternion.identity);
+            //이펙트 1초 뒤 지우기
+            GameManager.Instance.GetHurt(collisionObject.gameObject);
+
+            //Destroy(go, 1);
+            yield return new WaitForSeconds(0.9f);
+
         }
     }
 

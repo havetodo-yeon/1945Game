@@ -91,8 +91,10 @@ public class Boss : MonoBehaviour
 
             UIManager.Instance.ScoreSet(score);
 
+            GameManager.Instance.iswin = true;
+
             UIManager.Instance.BossTextSet("Stage Clear!", 3f);
-            UIManager.Instance.Fade();
+            UIManager.Instance.Invoke("Fade", 2f);
 
         }
     }
@@ -101,11 +103,11 @@ public class Boss : MonoBehaviour
 
     void Update()
     {
-        if(transform.position.x > 0.6f)
+        if(transform.position.x > 0.5f)
         {
             flag *= -1;
         }
-        if(transform.position.x < -0.6f)
+        if(transform.position.x < -0.5f)
         {
             flag *= -1;
         }

@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class ObjectColor : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
-    public static ObjectColor Instance;
+    public static GameManager Instance;
+
+    public bool iswin;
+
 
     private void Awake()
     {
@@ -17,6 +20,7 @@ public class ObjectColor : MonoBehaviour
     {
         StartCoroutine(BeingRed(gameObject));
     }
+
     IEnumerator BeingRed(GameObject gameObject)
     {
         float startAlpha = 0;
@@ -29,6 +33,25 @@ public class ObjectColor : MonoBehaviour
             if (objectColor == null) // objectColor가 null인지 체크
                 yield break; // null이면 코루틴 종료
             objectColor.color = new Color(1, startAlpha, startAlpha, 1);
+        }
+    }
+
+    public void SetFlicker(GameObject gameObject)
+    {
+        StartCoroutine(BeingFlicker(gameObject));
+    }
+
+    IEnumerator BeingFlicker(GameObject gameObject)
+    {
+        float timeSetting = 0;
+        SpriteRenderer objectColor = gameObject.GetComponent<SpriteRenderer>();
+        while (timeSetting < 1.0f)
+        {
+            objectColor.color = new Color(1, 1, 1, 0);
+            yield return new WaitForSeconds(0.1f);
+            objectColor.color = new Color(1, 1, 1, 1);
+            yield return new WaitForSeconds(0.1f);
+            timeSetting += 0.1f;
         }
     }
 }

@@ -64,10 +64,10 @@ public class UIManager : MonoBehaviour
     IEnumerator FadeOut()
     {
         float currentA = 0;
-        while(currentA < 0.8f)
+        while(currentA < 0.95f)
         {
-            currentA += Time.deltaTime;
-            yield return new WaitForSeconds(Time.deltaTime);
+            currentA += 0.01f;
+            yield return new WaitForSeconds(0.01f);
             FadeImage.GetComponent<Image>().color = new Color(0, 0, 0, currentA);
 
         }

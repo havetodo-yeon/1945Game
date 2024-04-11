@@ -35,7 +35,7 @@ public class PBullet : MonoBehaviour
 
             collision.gameObject.GetComponent<Monster>().Damage(Attack);
 
-            ObjectColor.Instance.GetHurt(collision.gameObject);
+            GameManager.Instance.GetHurt(collision.gameObject);
 
             // 미사일 삭제
             Destroy(gameObject);
@@ -43,7 +43,7 @@ public class PBullet : MonoBehaviour
 
         if (collision.CompareTag("Boss"))
         {
-            ObjectColor.Instance.GetHurt(collision.gameObject);
+            GameManager.Instance.GetHurt(collision.gameObject);
 
             // 이펙트 생성
             GameObject go = Instantiate(effect, transform.position, Quaternion.identity);

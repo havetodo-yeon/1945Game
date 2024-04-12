@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,6 +27,10 @@ public class Player : MonoBehaviour
     public float gValue = 0;
     public Image Gage;
     private bool isGaugeFull = false;
+
+    // ∆¯≈∫ ∫Ò«‡±‚
+    public GameObject bombAirplainPrefab;
+    public float bombCoolTime = 0;
 
 
     void Start()
@@ -69,6 +74,15 @@ public class Player : MonoBehaviour
 
     private void PlayerAttack()
     {
+        bombCoolTime += Time.deltaTime;
+        if(bomb > 0 && Input.GetKeyDown(KeyCode.R) && bombCoolTime > 4f)
+        {
+            bombCoolTime = 0;
+            Instantiate(bombAirplainPrefab, bombAirplainPrefab.transform.position, Quaternion.identity);
+            bomb--;
+            bombCounting.sprite = bombImage[bomb];
+        }
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             // «¡∏Æ∆’ ¿ßƒ° πÊ«‚ ª˝º∫
@@ -181,6 +195,7 @@ public class Player : MonoBehaviour
                 GameObject go = Instantiate(item.text, transform.position, Quaternion.identity);
                 Destroy(go, 0.5f);
             }
+            SoundManager.Instance.SetAudio(2);
             // æ∆¿Ã≈€ ∏‘∞Ì ªÁ∂Û¡¸
             Destroy(collision.gameObject);
         }
@@ -195,6 +210,7 @@ public class Player : MonoBehaviour
                 GameObject go = Instantiate(item.text, transform.position, Quaternion.identity);
                 Destroy(go, 0.5f);
             }
+            SoundManager.Instance.SetAudio(2);
             // æ∆¿Ã≈€ ∏‘∞Ì ªÁ∂Û¡¸
             Destroy(collision.gameObject);
         }

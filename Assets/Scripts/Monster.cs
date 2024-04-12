@@ -52,6 +52,8 @@ public class Monster : MonoBehaviour
         {
             ItemDrop();
 
+            SoundManager.Instance.SetAudio(0);
+
             // 이펙트 생성
             GameObject go = Instantiate(effect, transform.position, Quaternion.identity);
             // 1초 뒤에 지우기

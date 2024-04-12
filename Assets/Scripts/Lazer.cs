@@ -12,6 +12,7 @@ public class Lazer : MonoBehaviour
     void Start()
     {
         pos = GameObject.Find("Player").GetComponent<Player>().pos;
+        SoundManager.Instance.SetAudio(3);
     }
 
     void Update()

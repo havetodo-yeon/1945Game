@@ -85,9 +85,7 @@ public class Spawn : MonoBehaviour
         // 보스 몬스터
         UIManager.Instance.BossTextSet("Boss Warning!", 2f);
 
-        Vector3 pos = new Vector3(0, 3.1f, 9);
-        
-        Instantiate(Boss, pos , Quaternion.identity);   
+        Instantiate(Boss, Boss.transform.position , Quaternion.identity);   
 
 
     }

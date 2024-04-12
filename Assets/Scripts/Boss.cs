@@ -82,6 +82,8 @@ public class Boss : MonoBehaviour
         HP -= attack;
         if (HP <= 0)
         {
+            SoundManager.Instance.SetAudio(1);
+
             // 이펙트 생성
             GameObject go = Instantiate(deadEffect, transform.position, Quaternion.identity);
             // 1초 뒤에 지우기
